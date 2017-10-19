@@ -1,0 +1,171 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+
+    def packageName = "com.liveteamvn.archmvp"
+    def appName = "Arch MVP"
+    def verName = "v1.0.0"
+    def verCode = 1
+
+    def hostApiDevelop = "http://mamagermenttoolapi.azurewebsites.net/api/"
+    def hostApiProduction = "http://mamagermenttoolapi.azurewebsites.net/api/"
+    def dbName = "ArchMVP"
+    def date = new Date().format("dd-MM-yyyy")
+
+    signingConfigs {
+        debug {
+            storeFile file('arch_keystore.jks')
+            storePassword "liveteamvn"
+            keyAlias "Android Architecture MPV Keystore"
+            keyPassword "liveteamvn"
+        }
+        release {
+            storeFile file('arch_keystore.jks')
+            storePassword "liveteamvn"
+            keyAlias "Android Architecture MPV Keystore"
+            keyPassword "liveteamvn"
+        }
+    }
+
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 26
+        versionCode verCode
+        versionName verName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+        preDexLibraries = false
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
+            debuggable false
+            applicationVariants.all { variant ->
+                renameAPK(variant, versionName, null)
+            }
+        }
+
+        debug {
+            signingConfig signingConfigs.debug
+            testCoverageEnabled = true
+            applicationVariants.all { variant ->
+                renameAPK(variant, versionName, null)
+            }
+        }
+    }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        develop {
+            applicationId "${packageName}.dev"
+            versionName "${appName} develop (${verName} update ${verCode}) ${date}"
+            dimension = "default"
+            buildConfigField("String", "BASE_URL", "\"${hostApiDevelop}\"")
+            buildConfigField("String", "BASE_DB_NAME", "\"${dbName}.base.db\"")
+            resValue "string", "app_name", "${appName} Develop"
+
+        }
+        production {
+            applicationId "${packageName}"
+            versionName "${appName} production (${verName} update ${verCode}) ${date}"
+            dimension = "default"
+            buildConfigField("String", "BASE_URL", "\"${hostApiProduction}\"")
+            buildConfigField("String", "BASE_DB_NAME", "\"${dbName}.base.db\"")
+            resValue "string", "app_name", "${appName}"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+static def renameAPK(variant, applicationName, suffix) {
+    variant.outputs.all { output ->
+        outputFileName = "${applicationName}${suffix != null ? "_${suffix}" : ""}.apk"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:support-v4:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    //support lib
+    implementation rootProject.ext.supportLibAppCompat
+    implementation rootProject.ext.supportDesign
+    implementation rootProject.ext.supportVectorDrawable
+    implementation rootProject.ext.supportContraint
+    implementation rootProject.ext.multidex
+    implementation rootProject.ext.util
+
+    implementation rootProject.ext.archRuntime
+    implementation rootProject.ext.archExtension
+    annotationProcessor rootProject.ext.archCompiler
+
+    implementation rootProject.ext.saferoom
+
+    compile rootProject.ext.roomRuntime
+    annotationProcessor rootProject.ext.roomCompiler
+
+    implementation rootProject.ext.paging
+
+    implementation rootProject.ext.okhttp
+    implementation rootProject.ext.retrofit
+    implementation rootProject.ext.gsonConverter
+
+    //dagger
+    annotationProcessor rootProject.ext.daggerCompiler
+    implementation rootProject.ext.dagger
+    implementation rootProject.ext.daggerAndroid
+    implementation rootProject.ext.daggerAndroidSupport
+    annotationProcessor rootProject.ext.daggerAndroidProcessor
+
+    //rx
+    implementation rootProject.ext.rxJava
+    implementation rootProject.ext.rxAndroid
+    implementation rootProject.ext.rxKotlin
+
+    //eventbus
+    implementation rootProject.ext.eventbus
+
+    //leakCanary
+    implementation rootProject.ext.leakCanaryDebug
+//    implementation rootProject.ext.leakCanaryRelease
+
+    //slim adapter
+    implementation rootProject.ext.slimAdapter
+
+    //glide
+    implementation rootProject.ext.glide
+    annotationProcessor rootProject.ext.glideProcessor
+
+    //stetho
+    implementation rootProject.ext.stetho
+
+    //common lang
+    implementation rootProject.ext.commonLang
+
+    //key watcher
+    implementation rootProject.ext.keyWatcher
+
+}

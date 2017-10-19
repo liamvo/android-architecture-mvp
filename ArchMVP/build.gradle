@@ -1,0 +1,91 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext.kotlin_version = '1.1.51'
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0-rc1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url 'https://maven.google.com'
+        }
+        maven {
+            url 'https://s3.amazonaws.com/repo.commonsware.com'
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    supportLibVersion = '26.1.0'
+    supportContrainVersion = '1.0.2'
+    multidexVersion = '1.0.1'
+    utilVersion = '1.9.3'
+    daggerVersion = '2.11'
+    retrofitVersion = '2.3.0'
+    gsonConverterVersion = '2.3.0'
+    okhttpVersion = '3.9.0'
+    archVersion = '1.0.0-beta2'
+    saferoomVersion = '0.1.0'
+    pagingVersion = '1.0.0-alpha3'
+    rxJavaVersion = '2.1.3'
+    rxAndroidVersion = '2.0.1'
+    rxKotlinVersion = '2.1.0'
+    eventbusVersion = '3.0.0'
+    leakCanaryVersion = '1.5.4'
+    slimAdapterVersion = '2.1.2'
+    glideVersion = '4.2.0'
+    stethoVersion = '1.5.0'
+    commonLangVersion = '3.4'
+    keyWatcherVersion = '0.1.3'
+
+    supportLibAppCompat = "com.android.support:appcompat-v7:$supportLibVersion"
+    supportDesign = "com.android.support:design:$supportLibVersion"
+    supportVectorDrawable = "com.android.support:support-vector-drawable:$supportLibVersion"
+    supportContraint = "com.android.support.constraint:constraint-layout:$supportContrainVersion"
+    multidex = "com.android.support:multidex:$multidexVersion"
+    util = "com.blankj:utilcode:$utilVersion"
+    archRuntime = "android.arch.lifecycle:runtime:$archVersion"
+    archExtension = "android.arch.lifecycle:extensions:$archVersion"
+    archCompiler = "android.arch.lifecycle:compiler:$archVersion"
+    roomRuntime = "android.arch.persistence.room:runtime:$archVersion"
+    roomCompiler = "android.arch.persistence.room:compiler:$archVersion"
+    saferoom = "com.commonsware.cwac:saferoom:$saferoomVersion"
+    paging = "android.arch.paging:runtime:$pagingVersion"
+    dagger = "com.google.dagger:dagger:$daggerVersion"
+    daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
+    daggerAndroid = "com.google.dagger:dagger-android:$daggerVersion"
+    daggerAndroidSupport = "com.google.dagger:dagger-android-support:$daggerVersion"
+    daggerAndroidProcessor = "com.google.dagger:dagger-android-processor:$daggerVersion"
+    retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    gsonConverter = "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
+    okhttp = "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    rxJava = "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    rxAndroid = "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    rxKotlin = "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
+    eventbus = "org.greenrobot:eventbus:$eventbusVersion"
+    leakCanaryDebug = "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+//    leakCanaryRelease = "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    slimAdapter = "net.idik:slimadapter:$slimAdapterVersion"
+    glide = "com.github.bumptech.glide:glide:$glideVersion"
+    glideProcessor = "com.github.bumptech.glide:compiler:$glideVersion"
+    stetho = "com.facebook.stetho:stetho:$stethoVersion"
+    commonLang = "org.apache.commons:commons-lang3:$commonLangVersion"
+    keyWatcher = "com.azimolabs.keyboardwatcher:keyboardwatcher:$keyWatcherVersion"
+}
