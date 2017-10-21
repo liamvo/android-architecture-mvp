@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.liveteamvn.archmvp.ArchMVPApp;
-import com.liveteamvn.archmvp.di.DaggerAppComponent;
+import com.liveteamvn.archmvp.di.component.DaggerAppComponent;
 
 import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;

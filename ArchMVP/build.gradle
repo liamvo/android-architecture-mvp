@@ -54,6 +54,7 @@ ext {
     stethoVersion = '1.5.0'
     commonLangVersion = '3.4'
     keyWatcherVersion = '0.1.3'
+    hawkVersion = '2.0.1'
 
     supportLibAppCompat = "com.android.support:appcompat-v7:$supportLibVersion"
     supportDesign = "com.android.support:design:$supportLibVersion"
@@ -88,4 +89,5 @@ ext {
     stetho = "com.facebook.stetho:stetho:$stethoVersion"
     commonLang = "org.apache.commons:commons-lang3:$commonLangVersion"
     keyWatcher = "com.azimolabs.keyboardwatcher:keyboardwatcher:$keyWatcherVersion"
+    hawk = "com.orhanobut:hawk:$hawkVersion"
 }

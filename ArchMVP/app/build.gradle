@@ -168,4 +168,7 @@ dependencies {
     //key watcher
     implementation rootProject.ext.keyWatcher
 
+    //hawk
+    implementation rootProject.ext.hawk
+
 }

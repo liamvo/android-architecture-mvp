@@ -24,6 +24,7 @@ abstract class BaseActivity<P : IPresenter> : AppCompatActivity(), HasSupportFra
     @Inject lateinit var fragmentAndroidInjector: DispatchingAndroidInjector<Fragment>
     @Inject lateinit var presenterFactory: IPresenterFactory
     var presenter: P? = null
+    var actionBack: (() -> Unit)? = null
 
     abstract fun getPresenterClass(): Class<P>?
 
@@ -74,6 +75,10 @@ abstract class BaseActivity<P : IPresenter> : AppCompatActivity(), HasSupportFra
     override fun onBackPressed() {
         when {
             !fragState.isRootFragment -> {
+                actionBack?.let {
+                    it.invoke()
+                    actionBack = null
+                }
                 fragState.popFragment(1)
             }
             else -> {
